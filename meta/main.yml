@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: "Aditya Patawari"
+  description: "Install ownCloud on Enterprise Linux like Centos and Red Hat" 
+  company: "Devops Nexus || TrainingDevops.com"
+  license: license (GPLv3)
+  min_ansible_version: 1.2
+  platforms:
+  - name: EL
+    versions:
+    - 6
+    - 7
+  galaxy_tags:
+    - owncloud 
+dependencies: []
+  

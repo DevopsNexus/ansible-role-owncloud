@@ -1,0 +1,31 @@
+---
+- name: setup php
+  yum: name={{ item }} state=installed
+  with_items:
+    - php-xml
+    - php
+    - php-zip
+    - php-mbstring
+    - php-mysqlnd
+    - php-gd
+  when: setup_php
+  notify: 
+  - restart httpd
+
+- name: install unarchiving tools
+  yum: name=bzip2 state=installed
+
+- name: create the destination directory
+  file: path={{ owncloud_destination }} state=directory
+
+- name: get the owncloud tar
+  get_url: url=https://download.owncloud.org/community/owncloud-{{ owncloud_version }}.tar.bz2 dest={{ owncloud_destination }}
+
+- name: extract the tar
+  unarchive: src=/var/www/html/owncloud-{{ owncloud_version }}.tar.bz2 dest=/var/www/html copy=no owner=apache
+
+- name: setting selinux context for writable dirs
+  file: path={{ owncloud_destination }}/{{ item }} setype=httpd_sys_rw_content_t
+  with_items:
+    - owncloud/apps
+    - owncloud/config

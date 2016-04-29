@@ -1,0 +1,4 @@
+---
+owncloud_version: "9.0.1"
+setup_php: true
+owncloud_destination: "/var/www/html"
